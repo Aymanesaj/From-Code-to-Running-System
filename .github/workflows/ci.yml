@@ -1,0 +1,19 @@
+name: CI - Build Images
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build app image
+        run: docker build -t app:ci ./app
+
+      - name: Build nginx image
+        run: docker build -t nginx:ci ./nginx
