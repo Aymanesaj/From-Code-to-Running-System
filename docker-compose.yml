@@ -1,12 +1,12 @@
 services:
   app:
-    build: ./app
+    image: ghcr.io/aymanesaj/app:prod
     container_name: app
     expose:
       - "8080"
 
   nginx:
-    build: ./nginx
+    image: ghcr.io/aymanesaj/nginx:prod
     container_name: nginx
     ports:
       - "80:80"

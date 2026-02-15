@@ -28,7 +28,15 @@ jobs:
           docker build -t ghcr.io/${{ env.OWNER_LC }}/app:${GITHUB_SHA} ./app
           docker push ghcr.io/${{ env.OWNER_LC }}/app:${GITHUB_SHA}
 
+          docker tag ghcr.io/${{ env.OWNER_LC }}/app:${GITHUB_SHA} ghcr.io/${{ env.OWNER_LC }}/app:prod
+          docker push ghcr.io/${{ env.OWNER_LC }}/app:prod
+
+
       - name: Build and push nginx image
         run: |
           docker build -t ghcr.io/${{ env.OWNER_LC }}/nginx:${GITHUB_SHA} ./nginx
           docker push ghcr.io/${{ env.OWNER_LC }}/nginx:${GITHUB_SHA}
+
+          docker tag ghcr.io/${{ env.OWNER_LC }}/nginx:${GITHUB_SHA} ghcr.io/${{ env.OWNER_LC }}/nginx:prod
+          docker push ghcr.io/${{ env.OWNER_LC }}/nginx:prod
+
