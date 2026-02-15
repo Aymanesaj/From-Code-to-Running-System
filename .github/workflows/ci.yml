@@ -1,4 +1,4 @@
-name: CI - Build Images
+name: CI - Build and Push Images
 
 on:
   push:
@@ -8,12 +8,24 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Build app image
-        run: docker build -t app:ci ./app
+      - name: Log in to GitHub Container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      - name: Build nginx image
-        run: docker build -t nginx:ci ./nginx
+      - name: Build and push app image
+        run: |
+          docker build -t ghcr.io/${{ github.actor }}/app:${GITHUB_SHA} ./app
+          docker push ghcr.io/${{ github.actor }}/app:${GITHUB_SHA}
+
+      - name: Build and push nginx image
+        run: |
+          docker build -t ghcr.io/${{ github.actor }}/nginx:${GITHUB_SHA} ./nginx
+          docker push ghcr.io/${{ github.actor }}/nginx:${GITHUB_SHA}
