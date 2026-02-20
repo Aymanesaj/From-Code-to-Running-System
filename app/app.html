@@ -2,46 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SysOps Playground</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #0f172a;
-            color: #e2e8f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .card {
-            background: #1e293b;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-            text-align: center;
-        }
-        h1 {
-            margin-bottom: 10px;
-            color: #38bdf8;
-        }
-        p {
-            opacity: 0.8;
-        }
-        .version {
-            margin-top: 20px;
-            font-size: 14px;
-            opacity: 0.6;
-        }
-    </style>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <div class="card">
+    <main class="card" role="main" aria-label="deployment status">
         <h1>🚀 Deployment Successful</h1>
         <p>Your containerized system is running correctly.</p>
-        <div class="version">
-            Version: v1
-        </div>
-    </div>
+        <p class="version">Version: v2</p>
+    </main>
 </body>
 </html>
