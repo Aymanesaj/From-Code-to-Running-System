@@ -3,7 +3,7 @@ variable "compartment_id" {
   type        = string
 }
 
-variable "subnet_id" {
+variable "private_subnet" {
   type = string
 }
 
@@ -12,16 +12,16 @@ variable "ssh_public_key" {
 }
 
 variable "instance_shape" {
-  type = string
+  type    = string
   default = "VM.Standard.A1.Flex"
 }
 
 variable "ocpus" {
-  type = number
+  type    = number
   default = 4
 }
 
 variable "memory_in_gbs" {
-  type = number
+  type    = number
   default = 24
 }

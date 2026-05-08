@@ -7,8 +7,18 @@ module "network" {
 }
 
 module "app" {
-  source = "../../modules/app"
-  subnet_id = module.network.subnet_id
+  source         = "../../modules/app"
+  private_subnet = module.network.private_subnet
   compartment_id = var.compartment_id
   ssh_public_key = var.ssh_public_key
+}
+
+module "lb" {
+  source         = "../../modules/lb"
+  private_ip     = module.app.private_ip
+  compartment_id = var.compartment_id
+  public_subnet  = module.network.public_subnet
+  instance_id    = module.app.instance_id
+  ssh_public_key = var.ssh_public_key
+  private_subnet = module.network.private_subnet
 }

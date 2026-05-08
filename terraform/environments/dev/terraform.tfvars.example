@@ -1,0 +1,6 @@
+compartment_id   = "ocid1.compartment.oc1..replace_me"
+ssh_public_key   = "ssh-rsa AAAA... replace_me"
+tenancy_ocid     = "ocid1.tenancy.oc1..replace_me"
+user_ocid        = "ocid1.user.oc1..replace_me"
+fingerprint      = "aa:bb:cc:dd:ee:ff:00:11:22:33:44:55:66:77:88:99"
+private_key_path = "/home/opc/.oci/replace_me.pem"
