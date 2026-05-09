@@ -55,16 +55,24 @@ resource "oci_core_security_list" "seclist" {
     }
   }
   egress_security_rules {
-    protocol    = "all"
+    protocol    = "6"
     destination = "0.0.0.0/0"
   }
-
 }
 
 resource "oci_core_security_list" "private_seclist" {
   compartment_id = var.compartment_id
   vcn_id         = oci_core_vcn.internal.id
   display_name   = "${var.name_prefix}-${var.environment}-private-seclist"
+  ingress_security_rules {
+    protocol    = "6"
+    source      = var.public_subnet_cidr
+    description = "Allow nginx traffic from LB subnet"
+    tcp_options {
+      min = 80
+      max = 80
+    }
+  }
   ingress_security_rules {
     protocol    = "6"
     source      = var.public_subnet_cidr
@@ -85,7 +93,7 @@ resource "oci_core_security_list" "private_seclist" {
   }
 
   egress_security_rules {
-    protocol    = "all"
+    protocol    = "6"
     destination = "0.0.0.0/0"
     description = "Allow outbound traffic"
   }

@@ -29,8 +29,8 @@ resource "oci_load_balancer_backend_set" "sysrun_backend_set" {
 
   health_checker {
     protocol = "HTTP"
-    port     = 8080
-    url_path = "/health"
+    port     = 80
+    url_path = "/healthz"
 
     retries           = 3
     timeout_in_millis = 3000
@@ -45,7 +45,7 @@ resource "oci_load_balancer_backend" "sysrun_backend" {
   backendset_name  = oci_load_balancer_backend_set.sysrun_backend_set.name
 
   ip_address = var.private_ip
-  port       = 8080
+  port       = 80
 
   weight = 1
 }
@@ -57,26 +57,4 @@ resource "oci_load_balancer_listener" "http_listener" {
 
   port     = 80
   protocol = "HTTP"
-}
-
-resource "oci_bastion_bastion" "bastion" {
-  compartment_id                = var.compartment_id
-  target_subnet_id              = var.private_subnet
-  bastion_type                  = "STANDARD"
-  name                          = "sysrun-bastion"
-  client_cidr_block_allow_list = var.bastion_client_cidr_allow_list
-}
-
-resource "oci_bastion_session" "bastion_session" {
-  bastion_id = oci_bastion_bastion.bastion.id
-  key_details {
-    public_key_content = var.ssh_public_key
-  }
-  target_resource_details {
-    session_type                       = "PORT_FORWARDING"
-    target_resource_private_ip_address = var.private_ip
-    target_resource_port               = 22
-  }
-  display_name           = "sysrun-session"
-  session_ttl_in_seconds = 3600
 }

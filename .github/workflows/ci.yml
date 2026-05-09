@@ -39,4 +39,3 @@ jobs:
 
           docker tag ghcr.io/${{ env.OWNER_LC }}/nginx:${GITHUB_SHA} ghcr.io/${{ env.OWNER_LC }}/nginx:prod
           docker push ghcr.io/${{ env.OWNER_LC }}/nginx:prod
-
